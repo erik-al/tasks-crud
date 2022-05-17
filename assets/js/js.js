@@ -23,20 +23,36 @@ function printTasks(tasks) {
 }
 
 
-function x(response) {
-    const tasks = response.data;
-    printTasks(tasks);
-}
-
-function cbError(error) {
-    console.log(error);
-}
 
 function getTasks() {
     axios.get('https://tasks-crud.academlo.com/api/tasks', { headers: headers })
-        .then(x)
-        .catch(cbError)
+        .then(function (response) {
+            const tasks = response.data;
+            printTasks(tasks);
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
 }
 
-// printTasks();
+function createTask() {
+    const newTask = {
+        name: 'Nueva tarea',
+        description: 'Descripción'
+    }
+
+    axios.post('https://tasks-crud.academlo.com/api/tasks', newTask, { headers: headers })
+        .then(function (response) {
+            console.log(response);
+            alert('Se creo la tarea correctamente');
+        })
+        .catch(function (error) {
+            alert('No se pudo crear la tarea');
+            console.log(error);
+        })
+}
+
 getTasks();
+
+// Crear la tarea con datos de un formulario
+// Después de crear una tarea actualizar el listado de tareas sin recargar la página
