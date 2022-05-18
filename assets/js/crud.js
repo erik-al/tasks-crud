@@ -5,6 +5,7 @@ const headers = {
     Authorization: `Bearer ${token}`
 }
 const baseURL = 'https://tasks-crud.academlo.com/api';
+let editingID = null;
 
 function getTasks() {
     axios.get('https://tasks-crud.academlo.com/api/tasks', { headers: headers })
@@ -49,4 +50,33 @@ function deleteTask(id) {
         })
 }
 
-export { getTasks, createTask, deleteTask }
+function editTask(id) {
+    axios.get(`${baseURL}/tasks/${id}`, { headers: headers })
+        .then(function (response) {
+            editingID = id;
+            const task =  response.data;
+            document.getElementById('name').value = task.name;
+            document.getElementById('description').value = task.description;
+        })
+        .catch(function (error) {
+            alert('No se pudo cargar la tarea');
+        })
+}
+
+function updateTask() {
+    const taskEdited = {
+        name: document.getElementById('name').value,
+        description: document.getElementById('description').value
+    }
+
+    axios.put(`${baseURL}/tasks/${editingID}`, taskEdited, { headers: headers })
+        .then(function (response) {
+            alert('Se editó la tarea correctamente');
+            getTasks();
+        })
+        .catch(function (error) {
+            alert('No se pudo editar la tarea');
+        })
+}
+
+export { getTasks, createTask, deleteTask, editTask, updateTask }

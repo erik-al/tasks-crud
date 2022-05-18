@@ -13,6 +13,9 @@ function printTasks(tasks) {
                                 <button class="btn btn-danger" onclick="deleteTask(${tasks[i].id})">
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
+                                <button class="btn btn-primary" onclick="editTask(${tasks[i].id})">
+                                    <i class="fas fa-pen"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
