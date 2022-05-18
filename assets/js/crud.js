@@ -4,6 +4,7 @@ const token = '915|R9cNRDzg5yxJmJU1CryU2h2yzpbe6FmZorjktO6y';
 const headers = {
     Authorization: `Bearer ${token}`
 }
+const baseURL = 'https://tasks-crud.academlo.com/api';
 
 function getTasks() {
     axios.get('https://tasks-crud.academlo.com/api/tasks', { headers: headers })
@@ -33,4 +34,19 @@ function createTask() {
         })
 }
 
-export { getTasks, createTask }
+function deleteTask(id) {
+    const confirmation = confirm('¿Estás seguro de eliminar la tarea?');
+    if(!confirmation){
+        return
+    }
+    axios.delete(`${baseURL}/tasks/${id}`, { headers: headers })
+        .then(function () {
+            alert('La tarea se eliminó correctamente');
+            getTasks();
+        })
+        .catch(function (error) {
+            alert('No se pudo eliminar la tarea');
+        })
+}
+
+export { getTasks, createTask, deleteTask }

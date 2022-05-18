@@ -7,8 +7,13 @@ function printTasks(tasks) {
         html += `<div class="col-md-6 col-lg-4 mt-3">
                     <div class="card">
                         <div class="card-body">
-                        <h5 class="card-title">${tasks[i].name}</h5>
-                        <p class="card-text">${tasks[i].description}</p>
+                            <h5 class="card-title">${tasks[i].name}</h5>
+                            <p class="card-text">${tasks[i].description}</p>
+                            <div class="text-end">
+                                <button class="btn btn-danger" onclick="deleteTask(${tasks[i].id})">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>`
